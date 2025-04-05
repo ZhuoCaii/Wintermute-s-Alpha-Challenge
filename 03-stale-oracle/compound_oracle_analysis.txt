@@ -1,0 +1,40 @@
+Alpha Challenge Answer - Compound v1 Oracle and Market Freeze Analysis
+=======================================================================
+
+a) Are the prices stale according to the view of Compound v1?
+-------------------------------------------------------------
+Answer: YES — the prices are stale according to any secure interpretation, although technically still "available".
+
+Explanation:
+- Compound v1 relied on manual price updates via an admin-controlled function (`setPrice`).
+- According to the Compound blog, v1 was deprecated on June 3, 2019.
+- However, on-chain data shows that prices remained unchanged after that point.
+- Since there were no automated price feeds, the existing price values were effectively stale.
+- The `getPrice(cToken)` function would still return a price — but it was no longer reflective of the real market value.
+
+Therefore, although technically prices existed, they were **stale and insecure**.
+
+
+b) Were markets paused in some way? Can one simulate borrowing on June 5, 2019?
+-------------------------------------------------------------------------------
+Answer: NO — the markets were not paused. The contracts remained live on-chain.
+
+Explanation:
+- Compound v1 had no built-in `pause()` or `freeze()` functions.
+- The front-end interface was taken down, but smart contracts remained callable.
+- Any user could interact with the protocol via direct RPC calls or Etherscan UI.
+
+Simulated borrow on June 5, 2019:
+- Check block number: 7938113 (June 5, 2019 ~00:00 UTC).
+- Function `getPrice(cToken)` still returned stale price.
+- A user could provide collateral (based on the outdated price), then borrow under-collateralized assets.
+- Since the protocol did not revalue the collateral in real-time, this could allow asset draining.
+
+Conclusion:
+- Compound v1 was not technically paused.
+- Prices were stale.
+- A user could have borrowed assets cheaply using outdated oracle values.
+
+References:
+- Compound Docs: https://compound.finance/docs#v1-price-oracle
+- Example contract: 0x3FDA67f7583380E67ef93072294a7fAc882FD7E7
