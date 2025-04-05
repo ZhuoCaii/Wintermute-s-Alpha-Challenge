@@ -12,7 +12,7 @@ Explanation:
 - Since there were no automated price feeds, the existing price values were effectively stale.
 - The `getPrice(cToken)` function would still return a price — but it was no longer reflective of the real market value.
 
-Therefore, although technically prices existed, they were **stale and insecure**.
+Therefore, although technically prices existed, they were stale and insecure.
 
 
 b) Were markets paused in some way? Can one simulate borrowing on June 5, 2019?
