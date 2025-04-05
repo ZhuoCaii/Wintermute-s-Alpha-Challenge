@@ -1,0 +1,42 @@
+a) Vulnerable DAOs and Attack Scenario
+Vulnerable DAO characteristics:
+DAOs that are most vulnerable to economic governance attacks usually have the following traits:
+Low voter participation (e.g. <2% of total supply);
+High governance token concentration (e.g. top 5 holders own >50%);
+No or weak execution controls (e.g. no timelocks, no guardian veto);
+On-chain execution enabled (proposal executes directly once passed).
+These DAOs often emerge in bear markets, where activity drops and tokens lose value.
+
+Attack strategy:
+Accumulate or borrow governance tokens via secondary markets or lending protocols;
+Create a malicious proposal, e.g., transferring treasury assets or granting minting rights;
+Vote through the proposal using tokens owned or borrowed, exploiting low participation;
+Execute the proposal to extract funds or change critical parameters.
+
+Cost estimation:
+Assume total token supply: 100M
+Quorum requirement: 3M (3%)
+Recent active votes: only ~1.5M
+Attacker needs ~1.6M tokens to control vote
+If token price = $1 → attack cost = $1.6M
+If token is borrowable → attack cost = short-term interest/fees ($10–50K)
+
+b) Potential Gains
+If the proposal passes, the attacker can access:
+
+1. Direct treasury funds:
+Hypothetical DAO treasury:
+2,000 ETH (~$6M)
+1.5M USDC (~$1.5M)
+Native governance token (illiquid, potential for manipulation)
+
+Attacker could transfer funds or issue “grants” to controlled wallets.
+Total gain: ≥ $7.5M
+
+2. Long-term protocol control:
+Instead of stealing funds, attacker can:
+Change emission schedules or mint rate
+Grant themselves admin control over the protocol
+Remove governance safeguards (e.g. increase quorum, remove veto)
+These allow long-term extraction of value via fees, token inflation, or bribes.
+
