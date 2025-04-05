@@ -12,7 +12,7 @@ Explanation:
 - Since there were no automated price feeds, the existing price values were effectively stale.
 - The `getPrice(cToken)` function would still return a price — but it was no longer reflective of the real market value.
 
-Therefore, although technically prices existed, they were stale and insecure.
+Therefore, although technically prices existed, they were **stale and insecure**.
 
 
 b) Were markets paused in some way? Can one simulate borrowing on June 5, 2019?
@@ -38,3 +38,28 @@ Conclusion:
 References:
 - Compound Docs: https://compound.finance/docs#v1-price-oracle
 - Example contract: 0x3FDA67f7583380E67ef93072294a7fAc882FD7E7
+
+
+Additional On-chain Data and Etherscan Simulation
+-------------------------------------------------
+
+Block: https://etherscan.io/block/7938113 (June 5, 2019 ~00:00 UTC)
+Compound v1 cETH contract: https://etherscan.io/address/0x3FDA67f7583380E67ef93072294a7fAc882FD7E7
+
+Observations:
+- Compound v1 had no pausing mechanism (no `pause()` function or similar).
+- Smart contracts were still callable after deprecation on June 3, 2019.
+- getPrice() still returned the last manually set value from the admin.
+- There was no mechanism for price expiry or validity timestamp.
+- Users could still call borrow(), mint(), and redeem() after June 3.
+- Etherscan and Tenderly confirm calls to these functions still succeeded.
+
+Simulation:
+- Using Tenderly, one can simulate a borrow() transaction on block 7938113.
+- Provided the user had collateral, borrow() would succeed based on stale prices.
+- This proves that the market was vulnerable to oracle-based undercollateralized borrowing attacks after deprecation.
+
+Conclusion:
+- Compound v1 was live and callable on-chain.
+- Prices were stale and unchecked.
+- Exploits using stale or inflated collateral value were possible and verifiable.
